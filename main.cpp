@@ -84,7 +84,7 @@ void Stormer_Verlet(std::vector<particle>& Particles, double dt = SCHEME_DT){
 void FD_term(std::vector<particle>& Particles, double dt = SCHEME_DT){
   double gamma, alpha_1, alpha_2;
   std::default_random_engine generator;
-  std::normal_distribution<double> G(0.0,pow(dt,0.5));
+  std::normal_distribution<double> G(0.0,pow(dt,2));
   for (int i = 0; i<NB_PARTICLES; i++){
     gamma = 0.001 * Particles[i].mass/dt;
     alpha_1 = exp(-gamma * dt/Particles[i].mass);
