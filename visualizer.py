@@ -20,7 +20,7 @@ for t in range(N_iter):
     for i in range(N_particle):
         l = input.readline().split(' ')
         for i_s in range(len(l)):
-            l[i_s] = float(l[i_s].split("e")[0]) * 10**(int(l[i_s].split("e")[1]))
+            l[i_s] = float(l[i_s])
         X.append(l[0])
         Y.append(l[1])
         Z.append(l[2])
@@ -41,7 +41,7 @@ for t in range(1,N_iter):
     current_X = Xs[t]
     current_Y = Ys[t]
     current_Z = Zs[t]
-    plt.pause(0.01)
+    plt.pause(5.0)
 plt.show()
 
 input = open("./energy.txt")
