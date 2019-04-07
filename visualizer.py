@@ -41,7 +41,7 @@ for t in range(1,N_iter):
     current_X = Xs[t]
     current_Y = Ys[t]
     current_Z = Zs[t]
-    plt.pause(5.0)
+    plt.pause(.01)
 plt.show()
 
 input = open("./energy.txt")
