@@ -13,7 +13,7 @@ public:
     int rep = 0;
     Test();
     Test(int t);
-    void exe(double (*Force)(particle,particle));
+    void exe(double (*Force)(particle,particle,double));
     void exe(std::vector<particle> particles);
     void show_rep();
 };

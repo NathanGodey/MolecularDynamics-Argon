@@ -36,9 +36,11 @@ void Test::exe(std::vector<particle> particles){
     this->show_rep();
 }
 
-void Test::exe(double (*Force)(particle, particle)){
+void Test::exe(double (*Force)(particle, particle,double)){
 
     if (this->type==2){
+
+        double L=10.;
 
         double dl=0.01;
 
@@ -56,19 +58,19 @@ void Test::exe(double (*Force)(particle, particle)){
         dist = particles[1].x - particles[0].x;
 
         std::ofstream force_output;
-        force_output.open("/home/adrien/COURS_ENPC/deuxieme_annee/Projet_Physique_code/force.txt");
+        force_output.open("/home/adrien/COURS_ENPC/deuxieme_annee/Projet_Phy_code/force.txt");
 
         while (dist>0.01) {
-            force = (*Force)(particles[0],particles[1]);
+            force = (*Force)(particles[0],particles[1],L);
             dist = particles[1].x - particles[0].x;
             force_output << dist << " " <<  force << std::endl;
-            particles[1].evolve(10,0.01);
+            particles[1].evolve(L,0.01);
         }
 
         force_output << -1 << " " << 0 << std::endl;
         force_output.close();
 
-        system("python3 /home/adrien/COURS_ENPC/deuxieme_annee/Projet_Physique_code/visualizer_test2.py");
+        system("python3 /home/adrien/COURS_ENPC/deuxieme_annee/Projet_Phy_code/visualizer_test2.py");
     }
     else{std::cerr << "wrong data for test2";}
 
