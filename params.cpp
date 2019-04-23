@@ -19,7 +19,7 @@ params::params(){
   std::cout <<"TEMPERATURE : "<<this->RAW_TEMPERATURE <<std::endl;
   this->BETA = 1. / (this->K_BOLTZ * this->TEMPERATURE);
   //this->SCHEME_DT = this->RAW_SCHEME_DT / (pow(2, 1/6.) * this->RAW_D_ARGON * pow(this->RAW_ARGON_MASS / this->RAW_E_0, 0.5));
-  this->SCHEME_DT = 0.05;
+  this->SCHEME_DT = 0.01;
   this->D_ARGON = 1./pow(2, 1/6.);
 
   this->DURATION = this->NB_ITER * this->SCHEME_DT;

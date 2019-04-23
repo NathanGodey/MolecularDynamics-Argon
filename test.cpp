@@ -83,6 +83,7 @@ void Test::exe(){
     std::vector<double> E_vect;
     std::ofstream pos_output;
     std::ofstream energy_output;
+    std::ofstream potential_output;
     particle p_1(1,1,1,0,0,0);
     p_1.mass=1;
     particle p_2(3,1,1,-0.01,0,0);
@@ -95,10 +96,12 @@ void Test::exe(){
     my_params.NB_ITER = 500;
     pos_output.open("./positions.txt");
     energy_output.open("./energy.txt");
+    potential_output.open("./potential.txt");
     pos_output <<my_params.L <<std::endl;
     pos_output <<my_params.NB_PARTICLES <<std::endl;
     pos_output <<my_params.NB_ITER <<std::endl;
     energy_output <<my_params.NB_ITER <<std::endl;
+    potential_output <<my_params.NB_ITER <<std::endl;
     for (int t=0; t<my_params.NB_ITER; t++){
       for (int i=0; i<my_params.NB_PARTICLES;i++){
         particle p = Particles[i];
@@ -106,7 +109,8 @@ void Test::exe(){
       }
       double current_E = E(Particles, my_params.L);
       E_vect.push_back(current_E);
-      energy_output  <<current_E <<std::endl;
+      energy_output  <<(current_E - V(Particles,my_params.L)) <<std::endl;
+      potential_output <<V(Particles, my_params.L) <<std::endl;
       Stormer_Verlet(Particles, my_params.SCHEME_DT, my_params.L);
     }
     pos_output.close();

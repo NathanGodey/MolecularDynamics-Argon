@@ -55,6 +55,11 @@ for t in range(N_iter):
     E.append(float(input.readline()))
 E_mean = float(input.readline())
 E_std_dev = stats.tstd(E)
-plt.ylim(E_mean-5*E_std_dev, E_mean+5*E_std_dev)
-plt.plot(range(len(E)), E)
+plt.plot(range(len(E)), E, c='r')
+input = open("./potential.txt")
+N_iter = int(input.readline())
+E = []
+for t in range(N_iter):
+    E.append(float(input.readline()))
+plt.plot(range(len(E)), E, c='b')
 plt.show()
