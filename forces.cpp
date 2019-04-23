@@ -4,7 +4,7 @@
 //REVOIR
 double LJ_potential(particle p_1, particle p_2, double L){
   double r1_2 = r(p_1, p_2, L);
-  return (pow(1./r1_2, 12) - pow(1./r1_2, 6));
+  return 4*(pow(1./r1_2, 6) - pow(1./r1_2, 3));
 }
 
 
@@ -26,12 +26,12 @@ std::vector<std::vector<double>> dV_update(std::vector<particle> Particles, doub
     for (int j = i+1; j<Particles.size(); j++){
       double d_LJ = d_LJ_potential(Particles[i], Particles[j], L);
       std::vector<double> U = direction(Particles[i], Particles[j], L);
-      dV[i][0] += d_LJ * U[0];
-      dV[i][1] += d_LJ * U[1];
-      dV[i][2] += d_LJ * U[2];
-      dV[j][0] -= d_LJ * U[0];
-      dV[j][1] -= d_LJ * U[1];
-      dV[j][2] -= d_LJ * U[2];
+      dV[i][0] -= d_LJ * U[0];
+      dV[i][1] -= d_LJ * U[1];
+      dV[i][2] -= d_LJ * U[2];
+      dV[j][0] += d_LJ * U[0];
+      dV[j][1] += d_LJ * U[1];
+      dV[j][2] += d_LJ * U[2];
     }
   }
   return dV;
@@ -89,7 +89,5 @@ double E(std::vector<particle> Particles, double L){
     p = Particles[i];
     E += (pow(p.px,2)+pow(p.py,2)+pow(p.pz,2)) / (2*p.mass);
   }
-  std::cout <<"E=" <<E <<std::endl;
-  std::cout <<"V=" <<V(Particles, L) <<std::endl;
   return E + V(Particles, L);
 }

@@ -34,17 +34,36 @@ void particle::evolve(double L, double dt){
   torify(this->z, L);
 }
 
+double minabs(double a, double b){
+  if (std::abs(a) >= std::abs(b)){
+    return b;
+  }
+  else{
+    return a;
+  }
+}
+
+
 std::vector<double> direction(particle p_1, particle p_2, double L){
   std::vector<double> U;
   double X=0, Y=0, Z=0;
-  if (p_1.x != p_2.x){
-    X = std::max(p_1.x - p_2.x, p_1.x - (p_2.x-L));
+  if (p_1.x <= p_2.x){
+    X = minabs(p_1.x - p_2.x, p_1.x - (p_2.x-L));
   }
-  if (p_1.y != p_2.y){
-    Y = std::max(p_1.y - p_2.y, p_1.y - (p_2.y-L));
+  else{
+    X = minabs(p_1.x - p_2.x, (p_1.x-L) - p_2.x);
   }
-  if (p_1.z != p_2.z){
-    Z = std::max(p_1.z - p_2.z, p_1.z - (p_2.z-L));
+  if (p_1.y <= p_2.y){
+    Y = minabs(p_1.y - p_2.y, p_1.y - (p_2.y-L));
+  }
+  else{
+    Y = minabs(p_1.y - p_2.y, (p_1.y-L) - p_2.y);
+  }
+  if (p_1.z <= p_2.z){
+    Z = minabs(p_1.z - p_2.z, p_1.z - (p_2.z-L));
+  }
+  else{
+    Z = minabs(p_1.z - p_2.z, (p_1.z-L) - p_2.z);
   }
   U.push_back(X);
   U.push_back(Y);
@@ -109,8 +128,11 @@ std::vector<particle> init_Argon(double A, int NB_PART_PER_DIM, double INI_P_SCA
         current_Z = k * A + A/2;
         std::vector<double> u = random_vector(INI_P_SCALE, 3);
         PX = u[0];
+        std::cout <<"PX = "<<PX <<std::endl;
         PY = u[1];
+        std::cout <<"PY = "<<PY <<std::endl;
         PZ = u[2];
+        std::cout <<"PZ = "<<PZ <<std::endl;
         particle P(current_X, current_Y, current_Z, PX, PY, PZ);
         P.mass = MASS;
         Particles.push_back(P);

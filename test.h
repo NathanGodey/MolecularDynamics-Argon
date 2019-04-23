@@ -15,6 +15,7 @@ public:
     Test(int t);
     void exe(double (*Force)(particle,particle,double));
     void exe(std::vector<particle> particles);
+    void exe();
     void show_rep();
 };
 
