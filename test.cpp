@@ -49,7 +49,7 @@ void Test::exe(double (*Force)(particle, particle,double)){
 
         particle p_1(1,1,1,0,0,0);
         p_1.mass=1;
-        particle p_2(9,1,1,0,0,0);
+        particle p_2(3,1,1,0,0,0);
         p_2.mass=1;
 
         double force;
@@ -63,7 +63,7 @@ void Test::exe(double (*Force)(particle, particle,double)){
         std::ofstream force_output;
         force_output.open("./force.txt");
 
-        while (dist>1) {
+        while (dist>0.9) {
             force = (*Force)(particles[0],particles[1],L);
             dist = particles[1].x - particles[0].x;
             force_output << dist << " " <<  force << std::endl;

@@ -12,3 +12,4 @@ void Stormer_Verlet(std::vector<particle>& Particles, double dt, double L);
 void FD_term(std::vector<particle>& Particles, double dt, double gamma, double beta);
 double E(std::vector<particle> Particles, double L);
 double V(std::vector<particle> Particles, double L);
+double T_cin(std::vector<particle> Particles, double kb);

@@ -13,16 +13,12 @@ particle::particle(){
 }
 
 void torify(double& param, double L){
-  if (param < 0){
-    param += L;
-  }
-  else if (param >= L){
-    param -= L;
-  }
-  if (param<0 || param > L){
-    std::cerr <<std::endl <<"Bad parameter choice : particles moving too fast relative to dimensions" <<std::endl;
-    std::exit(1);
-  }
+  // if (param<-L || param > 2*L){
+  //   std::cout <<L <<" " <<param;
+  //   std::cout <<std::endl <<"Bad parameter choice : particles moving too fast relative to dimensions" <<std::endl;
+  // }
+  param -= L * floor(param/L);
+
 }
 
 void particle::evolve(double L, double dt){
@@ -119,20 +115,20 @@ std::vector<double> random_vector(double norm, int dimension){
 
 std::vector<particle> init_Argon(double A, int NB_PART_PER_DIM, double INI_P_SCALE, double MASS){
   std::vector<particle> Particles;
-  double current_X, current_Y, current_Z, PX, PY, PZ;
+  std::default_random_engine generator;
+  std::normal_distribution<double> G(0.0,INI_P_SCALE/pow(3,0.5));
+  double current_X, current_Y, current_Z;
   for (int i = 0; i<NB_PART_PER_DIM; i++){
     current_X = i * A + A/2;
     for (int j = 0; j<NB_PART_PER_DIM; j++){
       current_Y = j * A + A/2;
       for (int k = 0; k<NB_PART_PER_DIM; k++){
         current_Z = k * A + A/2;
-        std::vector<double> u = random_vector(INI_P_SCALE, 3);
-        PX = u[0];
-        std::cout <<"PX = "<<PX <<std::endl;
-        PY = u[1];
-        std::cout <<"PY = "<<PY <<std::endl;
-        PZ = u[2];
-        std::cout <<"PZ = "<<PZ <<std::endl;
+
+        double PX = G(generator);
+        double PY = G(generator);
+        double PZ = G(generator);
+        //std::cout <<PX <<" " <<PY <<" " <<PZ <<" ";
         particle P(current_X, current_Y, current_Z, PX, PY, PZ);
         P.mass = MASS;
         Particles.push_back(P);
